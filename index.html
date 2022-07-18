@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta charset="utf-8">
+        <title>カウンター</title>
+        <style>
+            body{
+                position:relative;
+                width: 100vw;
+                height: 100vh;
+            }
+            .inner{
+                position:absolute;
+                left: 50%;
+                top: 50%;
+                transform:translate(-50%,-50%);
+                text-align: center;
+                width: 800px;
+                padding: 80px 0;
+                background:#ddd;
+            }
+            h1{
+                font-size: 55px;
+                margin-bottom: 20px;
+            }
+            .number{
+                font-size: 44px;
+                font-weight: bold;
+            }
+            .flexWrap{
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="inner">
+            <h1>Counter</h1>
+            <span class="number" id="js-number"></span>
+            <div class="flexWrap">
+                <button class="btn minus">マイナス</button>
+                <button class="btn reset">リセット</button>
+                <button class="btn plus">プラス</button>
+            </div>
+        </div>
+        <script>
+            const $number = document.getElementById("js-number");
+            const $btns = document.querySelectorAll(".btn");
+            const $btnIndex = $btns.length;
+            let count;
+
+            // カウンターのスタイリング
+            const counterStyle = ()=>{
+                if(count === 0){
+                    $number.style.color = "black";
+                }else if(count < 0){
+                    $number.style.color = "blue";
+                }else if(count > 0){
+                    $number.style.color = "green";
+                }
+            }
+
+            // カウンター初期化
+            const init = () => {
+                count = 0;
+                $number.textContent = count;
+            };
+            init();
+
+            // カウンタープラス
+            const plus = () => {
+                count ++;
+                $number.textContent = count;
+            };
+
+            // カウンタープラス
+            const minus = () => {
+                count --;
+                $number.textContent = count;
+            };
+
+            // ボタン押下時の動作
+            for(btn of $btns){
+                btn.addEventListener('click' , (e)=>{
+                    const targetClass = e.target.className;
+                    if(targetClass.indexOf('reset') != -1){
+                        init();
+                    }
+                    if(targetClass.indexOf('plus') != -1){
+                        plus();
+                    }
+                    if(targetClass.indexOf('minus') != -1){
+                        minus();
+                    }
+                    counterStyle();
+                });
+            };
+
+
+        </script>
+    </body>
+</html>
